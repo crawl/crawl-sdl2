@@ -97,7 +97,6 @@ endif
 
 ifdef TARGET_OS_WINDOWS
 SDL2_SOURCES += \
-    src/audio/xaudio2/*.c \
     src/audio/winmm/*.c \
     src/filesystem/windows/*.c \
     src/joystick/windows/*.c \
