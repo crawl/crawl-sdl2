@@ -31,6 +31,8 @@
 /* Add any platform that doesn't build using the configure system. */
 #ifdef USING_PREMAKE_CONFIG_H
 #include "SDL_config_premake.h"
+#elif defined(__LINUX__)
+#include "SDL_config_linux.h"
 #elif defined(__WIN32__)
 #include "SDL_config_windows.h"
 #elif defined(__WINRT__)

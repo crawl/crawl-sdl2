@@ -42,6 +42,7 @@ MAN3_PAGES = docs/man3/*.3
 SDL2_SOURCES = \
     src/*.c \
     src/audio/*.c \
+    src/atomic/*.c \
     src/cpuinfo/*.c \
     src/events/*.c \
     src/file/*.c \
@@ -60,7 +61,6 @@ SDL2_SOURCES = \
 	src/joystick/dummy/*.c \
 	src/render/software/*.c \
 	src/render/opengl/*.c \
-	src/thread/generic/*.c \
 	src/timer/dummy/*.c \
 	src/video/dummy/*.c \
 	src/loadso/dummy/*.c
@@ -74,6 +74,7 @@ SDL2_SOURCES += \
     src/haptic/linux/*.c \
     src/joystick/linux/*.c \
     src/loadso/dlopen/*.c \
+    src/power/linux/*.c \
     src/thread/pthread/*.c \
     src/timer/unix/*.c \
     src/video/directfb/*.c \
@@ -88,6 +89,7 @@ SDL2_SOURCES += \
     src/filesystem/cocoa/*.c \
     src/joystick/darwin/*.c \
     src/loadso/dlopen/*.c \
+    src/power/macosx/*.c \
     src/thread/pthread/*.c \
     src/timer/unix/*.c \
     src/video/cocoa/*.m
@@ -100,6 +102,7 @@ SDL2_SOURCES += \
     src/filesystem/windows/*.c \
     src/joystick/windows/*.c \
     src/loadso/windows/*.c \
+    src/power/windows/*.c \
     src/render/direct3d/*.c \
     src/thread/windows/*.c \
     src/timer/windows/*.c \
