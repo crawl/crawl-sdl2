@@ -71,6 +71,7 @@ ifeq ($(uname_S),Linux)
 SDL2_SOURCES += \
     src/audio/alsa/*.c \
     src/audio/dsp/*.c \
+    src/core/linux/*.c \
     src/haptic/linux/*.c \
     src/joystick/linux/*.c \
     src/loadso/dlopen/*.c \
@@ -87,6 +88,7 @@ ifeq ($(uname_S),Darwin)
 SDL2_SOURCES += \
     src/audio/coreaudio/*.c \
     src/filesystem/cocoa/*.c \
+    src/haptic/darwin/*.c \
     src/joystick/darwin/*.c \
     src/loadso/dlopen/*.c \
     src/power/macosx/*.c \
@@ -97,12 +99,17 @@ endif
 
 ifdef TARGET_OS_WINDOWS
 SDL2_SOURCES += \
+    src/audio/directsound/*.c \
     src/audio/winmm/*.c \
+    src/core/windows/*.c \
     src/filesystem/windows/*.c \
+    src/haptic/windows/*.c \
     src/joystick/windows/*.c \
+    src/libm/*.c \
     src/loadso/windows/*.c \
     src/power/windows/*.c \
     src/render/direct3d/*.c \
+    src/thread/generic/*.c \
     src/thread/windows/*.c \
     src/timer/windows/*.c \
     src/video/windows/*.c \
