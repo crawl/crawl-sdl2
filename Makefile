@@ -65,7 +65,8 @@ SDL2_SOURCES = \
 	src/video/dummy/*.c \
 	src/loadso/dummy/*.c
 
-SDL2MAIN_SOURCES =
+SDL2MAIN_SOURCES = \
+    src/main/dummy/*.c
 
 ifeq ($(uname_S),Linux)
 SDL2_SOURCES += \
@@ -87,7 +88,7 @@ endif
 ifeq ($(uname_S),Darwin)
 SDL2_SOURCES += \
     src/audio/coreaudio/*.c \
-    src/filesystem/cocoa/*.c \
+    src/filesystem/cocoa/*.m \
     src/haptic/darwin/*.c \
     src/joystick/darwin/*.c \
     src/loadso/dlopen/*.c \
