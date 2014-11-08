@@ -142,6 +142,7 @@ typedef unsigned int uintptr_t;
 #else
 #define HAVE_STDARG_H   1
 #define HAVE_STDDEF_H   1
+#define HAVE_STDIO_H    1
 #endif
 
 /* Enable various audio drivers */

@@ -108,8 +108,8 @@ SDL2_SOURCES += \
     src/loadso/windows/*.c \
     src/power/windows/*.c \
     src/render/direct3d/*.c \
-    src/thread/generic/*.c \
     src/thread/windows/*.c \
+    src/thread/generic/*.c \
     src/timer/windows/*.c \
     src/video/windows/*.c \
 
