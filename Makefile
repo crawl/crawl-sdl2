@@ -32,12 +32,9 @@ CFLAGS ?= -O2
 
 prefix ?= /usr/local
 libdir := $(prefix)/lib
-man3dir := $(prefix)/share/man/man3
 includedir := $(prefix)/include/SDL2
 
 HEADERS = include/*.h
-
-MAN3_PAGES = docs/man3/*.3
 
 SDL2_SOURCES = \
     src/*.c \
@@ -88,6 +85,7 @@ endif
 ifeq ($(uname_S),Darwin)
 SDL2_SOURCES += \
     src/audio/coreaudio/*.c \
+    src/file/cocoa/*.m \
     src/filesystem/cocoa/*.m \
     src/haptic/darwin/*.c \
     src/joystick/darwin/*.c \
@@ -121,11 +119,9 @@ endif
 
 SDL2_SOURCES := $(shell echo $(SDL2_SOURCES))
 SDL2MAIN_SOURCES := $(shell echo $(SDL2MAIN_SOURCES))
-MAN3_PAGES := $(shell echo $(MAN3_PAGES))
 HEADERS := $(shell echo $(HEADERS))
 
 HEADERS_INST := $(patsubst include/%,$(includedir)/%,$(HEADERS))
-MAN3_INST := $(patsubst docs/man3/%,$(man3dir)/%,$(MAN3_PAGES))
 
 # First handle .c files
 SDL2_OBJECTS := $(patsubst %.c,%.o,$(SDL2_SOURCES))
@@ -151,12 +147,7 @@ $(libdir)/%.a: %.a
 	$(QUIET_INSTALL)cp $< $@
 	@chmod 0644 $@
 
-$(man3dir)/%.3: docs/man3/%.3
-	-@if [ ! -d $(man3dir)  ]; then mkdir -p $(man3dir); fi
-	$(QUIET_INSTALL)cp $< $@
-	@chmod 0644 $@
-
-install: $(MAN3_INST) $(HEADERS_INST) $(libdir)/$(SDL2_LIB) $(libdir)/$(SDL2MAIN_LIB)
+install: $(HEADERS_INST) $(libdir)/$(SDL2_LIB) $(libdir)/$(SDL2MAIN_LIB)
 
 clean:
 	$(RM) $(SDL2_OBJECTS) $(SDL2MAIN_OBJECTS) *.a .cflags
