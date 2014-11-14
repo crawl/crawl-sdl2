@@ -42,6 +42,9 @@ extern void Android_JNI_ShowTextInput(SDL_Rect *inputRect);
 extern void Android_JNI_HideTextInput();
 extern ANativeWindow* Android_JNI_GetNativeWindow(void);
 
+/* Video helper */
+extern int Android_JNI_GetDensity();
+
 /* Audio support */
 extern int Android_JNI_OpenAudioDevice(int sampleRate, int is16Bit, int channelCount, int desiredBufferFrames);
 extern void* Android_JNI_GetAudioBuffer();

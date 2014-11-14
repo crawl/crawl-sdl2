@@ -29,6 +29,8 @@
 #include "SDL_androidvideo.h"
 #include "SDL_androidwindow.h"
 
+#include <android/configuration.h>
+
 int
 Android_CreateWindow(_THIS, SDL_Window * window)
 {
@@ -44,6 +46,16 @@ Android_CreateWindow(_THIS, SDL_Window * window)
     /* Adjust the window data to match the screen */
     window->x = 0;
     window->y = 0;
+
+    if (window->flags & SDL_WINDOW_ALLOW_HIGHDPI)
+    {
+        int density = Android_JNI_GetDensity();
+
+        Android_ScreenWidth  *= ACONFIGURATION_DENSITY_MEDIUM;
+        Android_ScreenWidth  /= density;
+        Android_ScreenHeight *= ACONFIGURATION_DENSITY_MEDIUM;
+        Android_ScreenHeight /= density;
+    }
     window->w = Android_ScreenWidth;
     window->h = Android_ScreenHeight;
 

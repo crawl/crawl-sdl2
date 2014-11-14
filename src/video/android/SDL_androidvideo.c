@@ -39,6 +39,8 @@
 #include "SDL_androidtouch.h"
 #include "SDL_androidwindow.h"
 
+#include <android/configuration.h>
+
 #define ANDROID_VID_DRIVER_NAME "Android"
 
 /* Initialization/Query functions */
@@ -51,6 +53,7 @@ extern SDL_GLContext Android_GLES_CreateContext(_THIS, SDL_Window * window);
 extern int Android_GLES_MakeCurrent(_THIS, SDL_Window * window, SDL_GLContext context);
 extern void Android_GLES_SwapWindow(_THIS, SDL_Window * window);
 extern int Android_GLES_LoadLibrary(_THIS, const char *path);
+extern void Android_GLES_GetDrawableSize(_THIS, SDL_Window * window, int * w, int * h);
 #define Android_GLES_GetProcAddress SDL_EGL_GetProcAddress
 #define Android_GLES_UnloadLibrary SDL_EGL_UnloadLibrary
 #define Android_GLES_SetSwapInterval SDL_EGL_SetSwapInterval
@@ -124,6 +127,7 @@ Android_CreateDevice(int devindex)
     device->GL_GetSwapInterval = Android_GLES_GetSwapInterval;
     device->GL_SwapWindow = Android_GLES_SwapWindow;
     device->GL_DeleteContext = Android_GLES_DeleteContext;
+    device->GL_GetDrawableSize = Android_GLES_GetDrawableSize;
 
     /* Text input */
     device->StartTextInput = Android_StartTextInput;
@@ -181,6 +185,13 @@ Android_VideoQuit(_THIS)
 void
 Android_SetScreenResolution(int width, int height, Uint32 format)
 {
+    if (Android_Window) {
+        if (Android_Window->flags & SDL_WINDOW_ALLOW_HIGHDPI) {
+	    int density = Android_JNI_GetDensity();
+	    width  = width  * ACONFIGURATION_DENSITY_MEDIUM / density;
+	    height = height * ACONFIGURATION_DENSITY_MEDIUM / density;
+        }
+    }
     Android_ScreenWidth = width;
     Android_ScreenHeight = height;
     Android_ScreenFormat = format;

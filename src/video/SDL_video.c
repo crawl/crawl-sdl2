@@ -1086,6 +1086,7 @@ SDL_RestoreMousePosition(SDL_Window *window)
 static void
 SDL_UpdateFullscreenMode(SDL_Window * window, SDL_bool fullscreen)
 {
+#ifndef __ANDROID__
     SDL_VideoDisplay *display;
     SDL_Window *other;
 
@@ -1177,6 +1178,7 @@ SDL_UpdateFullscreenMode(SDL_Window * window, SDL_bool fullscreen)
     SDL_RestoreMousePosition(window);
 
     window->last_fullscreen_flags = window->flags;
+#endif
 }
 
 #define CREATE_FLAGS \

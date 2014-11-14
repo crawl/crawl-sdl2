@@ -31,7 +31,9 @@
 #include "SDL_androidvideo.h"
 #include "../../core/android/SDL_android.h"
 
+
 #include <android/log.h>
+#include <android/window.h>
 
 #include <dlfcn.h>
 
@@ -50,6 +52,25 @@ Android_GLES_SwapWindow(_THIS, SDL_Window * window)
 int
 Android_GLES_LoadLibrary(_THIS, const char *path) {
     return SDL_EGL_LoadLibrary(_this, path, (NativeDisplayType) 0);
+}
+
+void
+Android_GLES_GetDrawableSize(_THIS, SDL_Window * window, int * w, int * h)
+{
+    ANativeWindow* awin = ((SDL_WindowData *)window->driverdata)->native_window;
+
+    if (!awin)
+        return;
+
+    if (w)
+    {
+        *w = ANativeWindow_getWidth(awin);
+    }
+
+    if (h)
+    {
+        *h = ANativeWindow_getHeight(awin);
+    }
 }
 
 #endif /* SDL_VIDEO_DRIVER_ANDROID */

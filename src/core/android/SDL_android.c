@@ -55,6 +55,9 @@ static void Android_JNI_ThreadDestroyed(void*);
  This file links the Java side of Android with libsdl
 *******************************************************************************/
 #include <jni.h>
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
+#include <android/configuration.h>
 #include <android/log.h>
 #include <stdbool.h>
 
@@ -535,6 +538,38 @@ int Android_JNI_SetupThread(void)
     Android_JNI_GetEnv();
     return 1;
 }
+
+/*
+ * Video helpers
+ */
+
+int Android_JNI_GetDensity()
+{
+    JNIEnv *env = Android_JNI_GetEnv();
+    jclass sdlClass = (*env)->FindClass(env, "org/libsdl/app/SDLActivity");
+
+    jmethodID mid =
+        (*env)->GetStaticMethodID(env, sdlClass, "getContext",
+                                  "()Landroid/content/Context;");
+    jobject context = (*env)->CallStaticObjectMethod(env, sdlClass, mid);
+
+    mid = (*env)->GetMethodID(env, (*env)->GetObjectClass(env, context),
+                              "getAssets",
+                              "()Landroid/content/res/AssetManager;");
+    jobject assets = (*env)->CallObjectMethod(env, context, mid);
+
+    AAssetManager *amgr = AAssetManager_fromJava(env, assets);
+
+    AConfiguration *config = AConfiguration_new();
+    AConfiguration_fromAssetManager(config, amgr);
+
+    int density = AConfiguration_getDensity(config);
+
+    AConfiguration_delete(config);
+
+    return density;
+}
+
 
 /*
  * Audio support
