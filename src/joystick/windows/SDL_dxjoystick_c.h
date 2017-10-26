@@ -56,6 +56,16 @@
 
 
 /* typedef's for XInput structs we use */
+#ifdef __MINGW64_VERSION_MAJOR
+#if ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((6) << 16) + (3))
+// Fix tiles compilation under mingw-w64 versions with 08/31/2016+ xinput.h
+// Here we check for mingw-w64 with GCC 6.3+ as an ill-defined but quick kludge
+#define HAS_XINPUT_GAMEPAD_EX
+#define HAS_XINPUT_STATE_EX
+#endif
+#endif
+
+#ifndef HAS_XINPUT_GAMEPAD_EX
 typedef struct
 {
     WORD wButtons;
@@ -67,12 +77,15 @@ typedef struct
     SHORT sThumbRY;
     DWORD dwPaddingReserved;
 } XINPUT_GAMEPAD_EX;
+#endif
 
+#ifndef HAS_XINPUT_STATE_EX
 typedef struct
 {
     DWORD dwPacketNumber;
     XINPUT_GAMEPAD_EX Gamepad;
 } XINPUT_STATE_EX;
+#endif
 
 /* Forward decl's for XInput API's we load dynamically and use if available */
 typedef DWORD (WINAPI *XInputGetState_t)
