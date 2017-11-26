@@ -161,6 +161,7 @@ typedef unsigned int uintptr_t;
 #else
 #define HAVE_STDARG_H   1
 #define HAVE_STDDEF_H   1
+#define HAVE_STDIO_H    1
 #endif
 
 /* Enable various audio drivers */
@@ -206,15 +207,6 @@ typedef unsigned int uintptr_t;
 #endif
 #ifndef SDL_VIDEO_RENDER_OGL
 #define SDL_VIDEO_RENDER_OGL    1
-#endif
-#ifndef SDL_VIDEO_RENDER_OGL_ES2
-#define SDL_VIDEO_RENDER_OGL_ES2    1
-#endif
-#ifndef SDL_VIDEO_OPENGL_ES2
-#define SDL_VIDEO_OPENGL_ES2    1
-#endif
-#ifndef SDL_VIDEO_OPENGL_EGL
-#define SDL_VIDEO_OPENGL_EGL    1
 #endif
 
 /* Enable Vulkan support */
