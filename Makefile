@@ -70,8 +70,10 @@ SDL2_SOURCES += \
     src/audio/alsa/*.c \
     src/audio/dsp/*.c \
     src/core/linux/*.c \
+    src/core/unix/*.c \
     src/haptic/linux/*.c \
     src/joystick/linux/*.c \
+    src/joystick/steam/*.c \
     src/loadso/dlopen/*.c \
     src/power/linux/*.c \
     src/thread/pthread/*.c \
