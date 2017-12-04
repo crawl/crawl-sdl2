@@ -86,7 +86,7 @@ endif
 
 ifeq ($(uname_S),Darwin)
 SDL2_SOURCES += \
-    src/audio/coreaudio/*.c \
+    src/audio/coreaudio/*.m \
     src/file/cocoa/*.m \
     src/filesystem/cocoa/*.m \
     src/haptic/darwin/*.c \
