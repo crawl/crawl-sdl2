@@ -17,6 +17,9 @@ uname_S ?= $(shell uname -s)
 ifneq (,$(findstring MINGW,$(uname_S)))
 TARGET_OS_WINDOWS := YesPlease
 endif
+ifneq (,$(findstring MSYS,$(uname_S)))
+TARGET_OS_WINDOWS := YesPlease
+endif
 ifneq (,$(findstring CYGWIN,$(uname_S)))
 TARGET_OS_WINDOWS := YesPlease
 endif
