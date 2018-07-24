@@ -101,15 +101,6 @@
 
 /* typedef's for XInput structs we use */
 
-/* Don't redeclare these on MinGW with gcc >= 5.0.2 */
-// This is a hack -- the real SDL solution used an autoconf check.
-// See: https://hg.libsdl.org/SDL/rev/c936a84f05ba
-// This particular hack is from https://hg.libsdl.org/SDL/rev/117d4ce1390e
-#if defined(__MINGW32__) && (((__GNUC__ * 10000) + (__GNUC_MINOR__ * 100) + __GNUC_PATCHLEVEL__) >= 50002)
-#define HAVE_XINPUT_GAMEPAD_EX
-#define HAVE_XINPUT_STATE_EX
-#endif
-
 #ifndef HAVE_XINPUT_GAMEPAD_EX
 typedef struct
 {
