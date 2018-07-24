@@ -138,6 +138,10 @@ SDL2MAIN_OBJECTS := $(patsubst %.m,%.o,$(SDL2MAIN_OBJECTS))
 
 CFLAGS += -I. -Iinclude -DNO_STDIO_REDIRECT
 
+ifeq (,$(shell ./test_xinput.sh))
+CFLAGS += -DHAVE_XINPUT_GAMEPAD_EX -DHAVE_XINPUT_STATE_EX
+endif
+
 .PHONY: install
 
 all: $(SDL2_LIB) $(SDL2MAIN_LIB)
