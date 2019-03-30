@@ -1437,6 +1437,16 @@ Cocoa_SetWindowSize(_THIS, SDL_Window * window)
     [nswindow setFrame:[nswindow frameRectForContentRect:rect] display:YES];
     s_moveHack = moveHack;
 
+    // setFrame:display may or may not have actually given us what we were
+    // looking for, for example, if the height impinged on the dock. Make sure
+    // that SDL gets back the correct results; otherwise, it will be out of
+    // sync until the user manually resizes the window. It may or may not be
+    // a better idea to do this by sending a resize event.
+    NSRect result_rect = [nswindow contentRectForFrameRect:[nswindow frame]];
+    ConvertNSRect([nswindow screen], (window->flags & FULLSCREEN_MASK), &rect);
+    window->w = (int)result_rect.size.width;
+    window->h = (int)result_rect.size.height;
+
     ScheduleContextUpdates(windata);
 }}
 
